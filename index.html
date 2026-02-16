@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>بوابة نادي الإعلام المدرسي | الفخامة الرقمية</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              border: "var(--border-color)",
+              input: "var(--input-bg)",
+              ring: "var(--ring)",
+              background: "var(--bg-app)",
+              foreground: "var(--text-main)",
+            }
+          }
+        }
+      }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+    <style>
+      :root {
+        /* User Specific White Theme Variables */
+        --bg-app: #FFFFFF;
+        --bg-card: #F5F5F5;
+        --text-main: #333333;
+        --accent: #6366f1;
+        --border-color: #E5E7EB;
+        --input-bg: #F9FAFB;
+        
+        /* Glass Panel - Adapted for White Theme */
+        --glass-bg: rgba(245, 245, 245, 0.9);
+        --glass-border: rgba(0, 0, 0, 0.05);
+        --glass-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05);
+      }
+
+      .dark {
+        /* Dark Mode Variables */
+        --bg-app: #030303;
+        --bg-card: rgba(20, 20, 20, 0.6);
+        --text-main: #f8fafc;
+        --border-color: rgba(255, 255, 255, 0.1);
+        --input-bg: rgba(0, 0, 0, 0.4);
+
+        /* Glass Panel - Frosted Look for Dark Mode */
+        --glass-bg: rgba(255, 255, 255, 0.03);
+        --glass-border: rgba(255, 255, 255, 0.05);
+        --glass-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+      }
+
+      body {
+        background-color: var(--bg-app);
+        color: var(--text-main);
+        font-family: 'Tajawal', sans-serif;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        transition: background-color 0.4s ease, color 0.4s ease;
+      }
+
+      /* Custom Scrollbar */
+      .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
+      .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+      .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(148, 163, 184, 0.3); border-radius: 10px; }
+      .dark .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.1); }
+      .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: rgba(148, 163, 184, 0.5); }
+      .dark .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.3); }
+
+      .gpu-layer {
+        transform: translateZ(0);
+        will-change: transform, opacity;
+      }
+
+      .glass-panel {
+        background: var(--glass-bg);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border: 1px solid var(--glass-border);
+        box-shadow: var(--glass-shadow);
+        transform: translateZ(0); 
+        transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .btn-bounce { transition: transform 0.1s cubic-bezier(0.4, 0, 0.2, 1); }
+      .btn-bounce:active { transform: scale(0.95); }
+      
+      .film-grain {
+        position: fixed;
+        top: 0; left: 0; width: 100%; height: 100%;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.07'/%3E%3C/svg%3E");
+        pointer-events: none;
+        z-index: 50;
+        mix-blend-mode: overlay;
+        opacity: 0.05;
+      }
+
+      @keyframes lens-spin-cw { 
+        from { transform: translate(-50%, -50%) rotate(0deg); } 
+        to { transform: translate(-50%, -50%) rotate(360deg); } 
+      }
+      @keyframes lens-spin-ccw { 
+        from { transform: translate(-50%, -50%) rotate(360deg); } 
+        to { transform: translate(-50%, -50%) rotate(0deg); } 
+      }
+      
+      .lens-ring-cw { 
+        position: absolute; 
+        top: 50%; left: 50%; 
+        animation: lens-spin-cw 120s linear infinite; 
+        will-change: transform;
+        pointer-events: none;
+      }
+      .lens-ring-ccw { 
+        position: absolute; 
+        top: 50%; left: 50%;
+        animation: lens-spin-ccw 90s linear infinite; 
+        will-change: transform;
+        pointer-events: none;
+      }
+
+      @keyframes light-leak-float {
+        0% { opacity: 0.2; transform: translate3d(0, 0, 0) scale(1); }
+        33% { opacity: 0.4; transform: translate3d(30px, -10px, 0) scale(1.1); }
+        66% { opacity: 0.3; transform: translate3d(-20px, 20px, 0) scale(0.9); }
+        100% { opacity: 0.2; transform: translate3d(0, 0, 0) scale(1); }
+      }
+      .cinematic-leak {
+        position: absolute;
+        filter: blur(80px);
+        animation: light-leak-float 20s ease-in-out infinite;
+        mix-blend-mode: screen;
+        pointer-events: none;
+        will-change: transform, opacity;
+        transform: translateZ(0);
+      }
+
+      @keyframes dust-float {
+        0% { transform: translate3d(0, 0, 0); opacity: 0; }
+        20% { opacity: 0.6; }
+        80% { opacity: 0.6; }
+        100% { transform: translate3d(40px, -150px, 0); opacity: 0; }
+      }
+      .dust-particle {
+        position: absolute;
+        background: white;
+        border-radius: 50%;
+        animation: dust-float 15s linear infinite;
+        pointer-events: none;
+        will-change: transform, opacity;
+      }
+
+      @keyframes shutter-snap {
+        0% { transform: scale(1.5); opacity: 0; }
+        10% { transform: scale(1); opacity: 1; }
+        15% { transform: scale(0.95); opacity: 1; }
+        100% { transform: scale(1); opacity: 1; }
+      }
+      .shutter-active { 
+        animation: shutter-snap 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+        will-change: transform, opacity; 
+      }
+
+      .card-premium {
+        background: var(--bg-card);
+        border: 1px solid var(--border-color);
+        border-radius: 1.5rem;
+        transition: transform 0.3s ease, background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+        will-change: transform;
+      }
+      .interactive-icon { transition: transform 0.2s ease, color 0.2s ease; }
+      .interactive-icon:hover { transform: scale(1.1); color: #818cf8; }
+      
+      .badge-rare { animation: float-badge 3s ease-in-out infinite; }
+      @keyframes float-badge { 
+        0%, 100% { transform: translate3d(0, 0, 0); } 
+        50% { transform: translate3d(0, -3px, 0); } 
+      }
+      
+      .reveal-cinematic {
+        animation: reveal-fade 1.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        will-change: transform, opacity;
+      }
+      @keyframes reveal-fade {
+         from { opacity: 0; transform: scale(0.95) translate3d(0, 20px, 0); filter: blur(5px); }
+         to { opacity: 1; transform: scale(1) translate3d(0, 0, 0); filter: blur(0); }
+      }
+
+      .animate-reveal-card {
+        animation: reveal-card-entry 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        will-change: transform, opacity, filter;
+      }
+      @keyframes reveal-card-entry {
+        0% { opacity: 0; transform: scale(1.1) translateY(40px); filter: blur(12px); }
+        100% { opacity: 1; transform: scale(1) translateY(0); filter: blur(0); }
+      }
+
+      .animate-slide-up-item {
+        opacity: 0;
+        animation: slide-up-fade 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+        will-change: transform, opacity;
+      }
+      @keyframes slide-up-fade {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      
+      @keyframes notif-slide-down {
+        0% { opacity: 0; transform: translateY(-20px) scale(0.95); }
+        100% { opacity: 1; transform: translateY(0) scale(1); }
+      }
+      @keyframes notif-slide-up-exit {
+        0% { opacity: 1; transform: translateY(0) scale(1); }
+        100% { opacity: 0; transform: translateY(-20px) scale(0.95); }
+      }
+      @keyframes progress-shrink {
+        from { width: 100%; }
+        to { width: 0%; }
+      }
+      
+      .notif-enter { animation: notif-slide-down 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+      .notif-exit { animation: notif-slide-up-exit 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+      
+      .notif-progress {
+        animation: progress-shrink linear forwards;
+      }
+      .group:hover .notif-progress {
+        animation-play-state: paused;
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@^19.2.4",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.4/",
+    "react/": "https://esm.sh/react@^19.2.4/",
+    "lucide-react": "https://esm.sh/lucide-react@^0.563.0",
+    "url": "https://esm.sh/url@^0.11.4",
+    "@google/genai": "https://esm.sh/@google/genai@^1.40.0",
+    "vite": "https://esm.sh/vite@^7.3.1",
+    "@vitejs/plugin-react": "https://esm.sh/@vitejs/plugin-react@^5.1.4",
+    "path": "https://esm.sh/path@^0.12.7",
+    "@/": "./"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+  <body class="overflow-x-hidden selection:bg-indigo-500/30 selection:text-indigo-200">
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+  </body>
+</html>

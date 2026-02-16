@@ -1,0 +1,9 @@
+{
+  "name": "School Media Club Portal",
+  "description": "A comprehensive internal portal for school media club members to manage profiles, upload media, track club visits, and engage with content.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone",
+    "display-capture"
+  ]
+}
